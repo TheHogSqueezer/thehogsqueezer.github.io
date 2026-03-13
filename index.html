@@ -237,6 +237,41 @@
       <div>Community project. Not affiliated with or endorsed by Electronic Arts or DICE.</div>
     </div>
   </footer>
+
+  <script>
+  async function loadServerStatus() {
+    try {
+      const response = await fetch("https://api.bflist.io/v2/bf1942/servers");
+      if (!response.ok) {
+        throw new Error("Failed to fetch server data");
+      }
+
+      const servers = await response.json();
+
+      const serverCount = Array.isArray(servers) ? servers.length : 0;
+
+      const playerCount = Array.isArray(servers)
+        ? servers.reduce((sum, server) => {
+            const players = Number(server.numplayers ?? server.players ?? 0);
+            return sum + (Number.isFinite(players) ? players : 0);
+          }, 0)
+        : 0;
+
+      document.getElementById("players-online").textContent = playerCount;
+      document.getElementById("servers-online").textContent = serverCount;
+      document.getElementById("status-text").textContent = "Live";
+    } catch (error) {
+      console.error(error);
+      document.getElementById("players-online").textContent = "--";
+      document.getElementById("servers-online").textContent = "--";
+      document.getElementById("status-text").textContent = "Unavailable";
+    }
+  }
+
+  loadServerStatus();
+</script>
+  
 </body>
 </html>
+
 
