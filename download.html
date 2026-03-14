@@ -52,7 +52,7 @@
         </ul>
 
         <div class="meta">
-          <div><strong>Version:</strong> Replace with package version</div>
+          <div><strong>Version:</strong> <span id="community-version">Loading...</span></div>
           <div><strong>Size:</strong> Replace with file size</div>
           <div><strong>Updated:</strong> Replace with date</div>
           <div><strong>Best for:</strong> Players wanting the fuller community setup path</div>
@@ -79,7 +79,7 @@
         </ul>
 
         <div class="meta">
-          <div><strong>Version:</strong> Replace with launcher version</div>
+          <div><strong>Version:</strong> <span id="launcher-version">Loading...</span></div>
           <div><strong>Size:</strong> Replace with file size</div>
           <div><strong>Updated:</strong> Replace with date</div>
           <div><strong>Best for:</strong> Existing Battlefield 1942 setups</div>
@@ -130,5 +130,35 @@
       <div>Community project. Not affiliated with or endorsed by Electronic Arts or DICE.</div>
     </div>
   </footer>
+
+  <script>
+async function loadLauncherVersion() {
+  try {
+    const response = await fetch("launcher-version.json?t=" + Date.now(), {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch version");
+    }
+
+    const data = await response.json();
+
+    const version = data.version || "Unknown";
+
+    const launcherEl = document.getElementById("launcher-version");
+    const communityEl = document.getElementById("community-version");
+
+    if (launcherEl) launcherEl.textContent = version;
+    if (communityEl) communityEl.textContent = version;
+
+  } catch (error) {
+    console.error("Version fetch failed:", error);
+  }
+}
+
+loadLauncherVersion();
+</script>
+  
 </body>
 </html>
