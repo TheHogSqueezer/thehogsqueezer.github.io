@@ -131,7 +131,7 @@
     </div>
   </footer>
 
-  <script>
+<script>
 async function loadLauncherVersion() {
   try {
     const response = await fetch("launcher-version.json?t=" + Date.now(), {
@@ -144,7 +144,7 @@ async function loadLauncherVersion() {
 
     const data = await response.json();
 
-    const version = data.version || "Unknown";
+    const version = data.launcherVersion || "Unknown";
 
     const launcherEl = document.getElementById("launcher-version");
     const communityEl = document.getElementById("community-version");
@@ -154,6 +154,12 @@ async function loadLauncherVersion() {
 
   } catch (error) {
     console.error("Version fetch failed:", error);
+
+    const launcherEl = document.getElementById("launcher-version");
+    const communityEl = document.getElementById("community-version");
+
+    if (launcherEl) launcherEl.textContent = "Unknown";
+    if (communityEl) communityEl.textContent = "Unknown";
   }
 }
 
