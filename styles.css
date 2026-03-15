@@ -226,6 +226,31 @@ h1 {
   font-size: 0.94rem;
 }
 
+.hero-live-stat {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  background: rgba(74, 79, 73, 0.82);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.hero-live-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.hero-live-stat strong {
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text);
+}
+
 .panel,
 .feature-card,
 .step,
