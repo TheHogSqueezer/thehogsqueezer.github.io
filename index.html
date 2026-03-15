@@ -222,41 +222,41 @@
     </div>
   </footer>
     
-    <script>
-    async function loadHeroPlayerCount() {
-      try {
-        const response = await fetch("https://api.bflist.io/v2/bf1942/servers");
-    
-        if (!response.ok) {
-          throw new Error("Failed to fetch player count");
-        }
-    
-        const servers = await response.json();
-    
-        let totalPlayers = 0;
-    
-        if (Array.isArray(servers)) {
-          servers.forEach(server => {
-            totalPlayers += Number(server.numPlayers || 0);
-          });
-        }
-    
-        const playerCountEl = document.getElementById("hero-player-count");
-        if (playerCountEl) {
-          playerCountEl.textContent = totalPlayers.toLocaleString();
-        }
-      } catch (error) {
-        console.error("Hero player count error:", error);
-        const playerCountEl = document.getElementById("hero-player-count");
-        if (playerCountEl) {
-          playerCountEl.textContent = "—";
-        }
+  <script>
+  async function loadHeroPlayerCount() {
+    try {
+      const response = await fetch("https://api.bflist.io/v2/bf1942/servers", {
+        cache: "no-store"
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch player count");
+      }
+  
+      const data = await response.json();
+      const servers = Array.isArray(data.servers) ? data.servers : [];
+  
+      const totalPlayers = servers.reduce((sum, server) => {
+        return sum + Number(server.numPlayers || 0);
+      }, 0);
+  
+      const playerCountEl = document.getElementById("hero-player-count");
+      if (playerCountEl) {
+        playerCountEl.textContent = totalPlayers.toLocaleString();
+      }
+    } catch (error) {
+      console.error("Hero player count error:", error);
+  
+      const playerCountEl = document.getElementById("hero-player-count");
+      if (playerCountEl) {
+        playerCountEl.textContent = "—";
       }
     }
-    
-    loadHeroPlayerCount();
-    setInterval(loadHeroPlayerCount, 60000);
-    </script>
+  }
+  
+  loadHeroPlayerCount();
+  setInterval(loadHeroPlayerCount, 60000);
+  </script>
   
 </body>
 </html>
