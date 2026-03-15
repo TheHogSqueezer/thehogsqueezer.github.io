@@ -327,6 +327,30 @@ section {
   grid-template-columns: 1fr 1fr;
 }
 
+.download-stats {
+  margin: 20px 0 32px;
+  padding: 16px 22px;
+  background: rgba(74, 79, 73, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
 section {
   padding: 30px 0;
 }
