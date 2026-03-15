@@ -237,7 +237,7 @@
     
         if (Array.isArray(servers)) {
           servers.forEach(server => {
-            totalPlayers += Number(server.players || 0);
+            totalPlayers += Number(server.numPlayers || 0);
           });
         }
     
